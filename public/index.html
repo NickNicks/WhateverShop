@@ -1,0 +1,47 @@
+<Html>
+    <Head>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' type='text/css'/>
+        <link rel='stylesheet' href='main.css' type='text/css'/>
+    </Head>
+    <body>
+        <div class="row" >
+            <div class="col-md-4">
+                <!--Spacer-->
+            </div>
+            <div class="col-md-4">
+                <h1>Whatever Shop!</h1>
+            </div>
+            <div class="col-md-4">
+               <a href="getBasket">Warenkorb</a>
+            </div>
+        </div>
+        <div class="row productRow">
+            <div class="col-md-3">
+                <button onclick="fetch('/intoBasket1')">+1</button>
+            </div>
+            <div class="col-md-3">
+                <button onclick="fetch('/intoBasket2')">+2</button>
+            </div>
+            <div class="col-md-3">
+                <button onclick="fetch('/intobasket')">+3</button>
+            </div>
+            <div class="col-md-3">
+                <button onclick="fetch('/intobasket')">+4</button>
+            </div>
+        </div>
+        <div class="row productRow" i>
+            <div class="col-md-3">
+                <button onclick="fetch('/intobasket')">+5</button>
+            </div>
+            <div class="col-md-3">
+                <button onclick="fetch('/intobasket')">+6</button>
+            </div>
+            <div class="col-md-3">
+                <button onclick="fetch('/intobasket')">+7</button>
+            </div>
+            <div class="col-md-3">
+                <button onclick="fetch('/intobasket')">+9</button>
+            </div>
+        </div>
+    </body>
+</Html>
