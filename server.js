@@ -1,10 +1,22 @@
 const express = require("express");
 const expressSession = require("express-session");
+const bodyParser = require('body-parser');
 
 const app = express();
+
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+app.use(bodyParser.json());
 
-
+class Item {
+    constructor(Name,Count) {
+      this.itemName = Name;
+      this.price = 0;
+      this.count = Count;
+    }
+  }
 
 app.use(expressSession({
     secret: "super-safe-secret", // used to create session IDs
@@ -12,45 +24,50 @@ app.use(expressSession({
     saveUninitialized: true // forces an uninitialized session to be stored
 }));
 
-/*app.get("/test", (req, res) => {
-    if(req.session.count == undefined) {
-        req.session.count = 0;
-    }
-    res.send(`
-        <html><body>
-            <button onclick="fetch('/intobasket')">+1</button>
-            <a href="getBasket">Go to other page</a>
-        </body></html>`)
-});*/
-
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/" + "index.html");
+    res.sendFile(__dirname + "/public/index.html");
   });
 
+app.get('/cart', function(req, res) {
+res.sendFile(__dirname + "/public/cart.html");
+});
 
-app.get("/intoBasket1", (req, res) => {
+app.post("/intoBasket", (req, res) => {
     if (!req.session.cart) {
     var cart = req.session.cart = [];  
     }
-    req.session.cart.push("item1");
-    res.end();
-});
+    
+    var newItem= new Item(req.body.basketButton,1);
 
-app.get("/intoBasket2", (req, res) => {
-    if (!req.session.cart) {
-    var cart = req.session.cart = [];  
+    var isPresent = req.session.cart.filter(cart => (cart.itemName === req.body.basketButton));
+    var objectIndex = req.session.cart.findIndex(cart => (cart.itemName === req.body.basketButton));
+    if (isPresent.length!=0){
+        req.session.cart[objectIndex].count=req.session.cart[objectIndex].count+1;
+        newItem.count = req.session.cart[objectIndex].count;
     }
-    req.session.cart.push("item2");
-    res.end();
+
+    if (isPresent.length==0){
+        req.session.cart.push(newItem);
+    }
+
+    res.redirect('back');
 });
 
-app.get("/getBasket", (req, res) => {
-    var cart = req.session.cart || [];  
-    res.send(`<div>Count: <span id="counter">${cart[0]}</span></div
-    <div>Count: <span id="counter">${cart[1]}</span></div
-    <div>Count: <span id="counter">${cart[2]}</span></div`)
 
+app.get('/getBasket', function(req, res) {
 
+    var cart = JSON.stringify(req.session.cart || []);
+
+    res.render(__dirname + "/public/cart.html", {cart:cart});
+  
+  });
+app.post('/updateBasket', function(req, res) {
+
+  for(var i = 0; i < req.session.cart.length; i++){
+    req.session.cart[i].count = (parseInt(req.body["Item"+i]));
+ }
+ console.log(req.session.cart[1].count);
+ res.redirect("/getBasket");
 });
 
 const server = app.listen(9999, () => {

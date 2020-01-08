@@ -1,0 +1,45 @@
+<script type="text/javascript" src="priceList.js"></script>
+<form action="/updateBasket" method="POST">
+    <table id="test">
+        <thead>
+            <tr>
+                <th>Items</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <input type="submit"></input>
+</form>
+</div>
+ <script type="module">
+var cart = JSON.parse('<%-cart%>');
+console.log(cart[1]);
+
+console.log(cart);
+
+var tableRef = document.getElementById('test').getElementsByTagName('tbody')[0];
+var totalPrice = 0;
+
+for (var i = 0; i < cart.length; i++) {
+
+    
+    getPrice(cart[i]);
+    totalPrice = totalPrice + cart[i].price * cart[i].count;
+    var newRow   = tableRef.insertRow();
+    var newCell  = newRow.insertCell(0);
+    newCell.innerHTML=cart[i].itemName;
+    var newCell  = newRow.insertCell(1);
+    newCell.innerHTML=cart[i].price * cart[i].count;
+    var newCell  = newRow.insertCell(2);
+    newCell.innerHTML="<input value=" + cart[i].count + " name=Item" + i + "></input>";
+}
+
+
+
+
+var newRow   = tableRef.insertRow();
+var newCell  = newRow.insertCell(0);
+newCell.innerHTML="Total Price =" + totalPrice ;
+
+</script>
