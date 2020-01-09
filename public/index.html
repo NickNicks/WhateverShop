@@ -1,3 +1,4 @@
+
 <Html>
     <Head>
         <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' type='text/css'/>
@@ -12,7 +13,7 @@
                 <h1>Whatever Shop!</h1>
             </div>
             <div class="col-md-4">
-               <a href="getBasket">Warenkorb</a>
+               <a href="getBasket" id="toBasketButton">Warenkorb</a>
             </div>
         </div>
         <div class="row productRow">
@@ -60,4 +61,9 @@
             </div>
         </div>
     </body>
+    <script>
+            var totalPrice = "<%-totalPrice%>";
+            var toBasketButton = document.getElementById("toBasketButton");
+            toBasketButton.innerHTML="Warenkorb (" + totalPrice +")";
+    </script>
 </Html>

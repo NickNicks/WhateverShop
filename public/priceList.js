@@ -1,5 +1,5 @@
-
-function getPrice(cart) {
+module.exports = {
+getPrice: function getPrice(cart) {
     if (cart.itemName == "Item 1"){
       cart.price=10;
     } 
@@ -25,3 +25,4 @@ function getPrice(cart) {
       cart.price=80;
     }
   }
+}

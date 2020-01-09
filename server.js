@@ -1,3 +1,5 @@
+const priceModule = require("./public/priceList");
+
 const express = require("express");
 const expressSession = require("express-session");
 const bodyParser = require('body-parser');
@@ -24,8 +26,12 @@ app.use(expressSession({
     saveUninitialized: true // forces an uninitialized session to be stored
 }));
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/public/index.html");
+  app.get('/home', function(req, res) {
+    
+    var cart = req.session.cart || [];
+    var totalPrice = getTotalPrice(cart);
+
+    res.render(__dirname + "/public/index.html", {totalPrice:totalPrice});
   });
 
 app.get('/cart', function(req, res) {
@@ -49,16 +55,20 @@ app.post("/intoBasket", (req, res) => {
     if (isPresent.length==0){
         req.session.cart.push(newItem);
     }
-
-    res.redirect('back');
+    res.redirect('/home');
 });
 
 
 app.get('/getBasket', function(req, res) {
 
-    var cart = JSON.stringify(req.session.cart || []);
+    var cart = req.session.cart || [];
+    var totalPrice = getTotalPrice(cart);
 
-    res.render(__dirname + "/public/cart.html", {cart:cart});
+    
+    var cart = JSON.stringify(req.session.cart || []);
+    getTotalPrice(cart);
+
+    res.render(__dirname + "/public/cart.html", {cart:cart,totalPrice:totalPrice});
   
   });
 app.post('/updateBasket', function(req, res) {
@@ -75,3 +85,14 @@ const server = app.listen(9999, () => {
 });
 
 app.listen(8080, () => console.log("listening on 8080"));
+
+function getTotalPrice(cart){
+  var totalPrice = 0;
+  for (var i = 0; i < cart.length; i++){
+
+    priceModule.getPrice(cart[i]);
+    totalPrice = totalPrice + cart[i].price * cart[i].count; 
+  }
+  console.log(totalPrice);
+  return totalPrice;
+}
