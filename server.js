@@ -80,6 +80,10 @@ app.post('/updateBasket', function(req, res) {
  res.redirect("/getBasket");
 });
 
+app.post('/DetailPage', function(req, res) {
+  res.sendFile(__dirname + "/public/" + req.body.DetailButton + ".html");
+});
+
 const server = app.listen(9999, () => {
     console.log("server started");
 });
