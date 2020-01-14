@@ -1,0 +1,40 @@
+<Head>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' type='text/css'/>
+    <link rel='stylesheet' href='main.css' type='text/css'/>
+</Head>
+<body>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+            <a href="getBasket" id="toBasketButton">Warenkorb</a>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+            <form action="/intoBasket" method="POST">
+                <input type name="basketButton" value="Epli Mug N.2" readonly="readonly">
+                <input type="submit" value="Put in basket"></input>           
+            </form>
+        </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <img src="images/Mug 2.png">
+        </div>
+        <div class="col-md-8">
+            <p>Description:
+                Itseanne jokainen loydetty ei no sylkaisi polvissa. Voitaisiin eri voi oma rantasipit vieraankin oljyisella pannaksesi. Eri nyt ehka han sina jos mina. On ei tyynessa vaativat antaapas. Et terve en ja ennen kerta hyvan ensin. Anastaa rapylat ai rantaan ymparys ne. Ai hymahti ne peralta konsuli. Ai helposti se itseanne he venhekin kiikarin. 
+
+                Enemmankin no tuhattakin tarkoittaa aallokkoon et. Kuolleelta loi tyttarensa mielellaan nyt eri venhettaan toi kaupunkien. Herra ostaa saa suuri tuo tiesi. Kun koetti suurin sitten han ole laskee. Ensi ja puna jo juon se eiko emme vain ai. On et pohjineen ne tosissaan huonoista merirosvo no olevinaan palkinnon. 
+                
+                Toki enaa jos ilme kun han ajaa ota pian. Kuolleen takaisin loi oli lapsilla nyt tyynessa hinnalla. Kulloin jos enempaa kynansa lie kun tulivat. Vai loi voi isa viitsi haluta ilonsa. Tietenkin pianaikaa tuo nyt jalkaansa loi torpparit raastavat. Meidan jumala han hirret eli voi lie kuinka. Ajattelin kuvitella ukkovaari rannoille kaannahti tervehtii osa nyt. 
+                
+                Aina alas ei ilme naki ja otti mene ai ne. Rikastunut nykyisista polvilleen ai sylettyvaa ja menettelet. Ai hyllyen melkein et tavaraa lehahti ne ai pujahti. Ai kahvipannu ne venhettaan se mielellaan. Tulossa askelia pistaen hahahah ja kuulkaa ja. Pysyn kay jolle vei nyt tahdo eli. Onkohan isomman luiseva ja uskoisi koskaan ne. Huoahti ota sen nuo tee pysyisi ommella. Potkaus ole emannan suinkin sen monissa. 
+            </p>
+        </div>
+    </div>
+</body>
+<script>
+    var totalPrice = "<%-totalPrice%>";
+    var toBasketButton = document.getElementById("toBasketButton");
+    toBasketButton.innerHTML="Warenkorb (" + totalPrice +")";
+</script>

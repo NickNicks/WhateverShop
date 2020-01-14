@@ -25,7 +25,7 @@ app.use(expressSession({
     resave: false, // do not save already saved values during each request
     saveUninitialized: true // forces an uninitialized session to be stored
 }));
-
+  
   app.get('/home', function(req, res) {
     
     var cart = req.session.cart || [];
@@ -81,7 +81,11 @@ app.post('/updateBasket', function(req, res) {
 });
 
 app.post('/DetailPage', function(req, res) {
-  res.sendFile(__dirname + "/public/" + req.body.DetailButton + ".html");
+
+  var cart = req.session.cart || [];
+    var totalPrice = getTotalPrice(cart);
+
+    res.render(__dirname + "/public/" + req.body.DetailButton + ".html", {totalPrice:totalPrice});
 });
 
 const server = app.listen(9999, () => {

@@ -5,10 +5,18 @@ h1{
 }
 
 .row.productRow{
-    margin-left:15%;
-    margin-top:10%;
+    margin-left:5%;
+    margin-top:5%;
 }
 
 .price{
     visibility: hidden;
+}
+
+#test{
+    background:url(/public/images/a.png) no-repeat;
+}
+ 
+img{
+    margin-right:40px;
 }
