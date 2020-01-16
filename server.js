@@ -34,10 +34,6 @@ app.use(expressSession({
     res.render(__dirname + "/public/index.html", {totalPrice:totalPrice});
   });
 
-app.get('/cart', function(req, res) {
-res.sendFile(__dirname + "/public/cart.html");
-});
-
 app.post("/intoBasket", (req, res) => {
     if (!req.session.cart) {
     var cart = req.session.cart = [];  
@@ -76,8 +72,7 @@ app.post('/updateBasket', function(req, res) {
   for(var i = 0; i < req.session.cart.length; i++){
     req.session.cart[i].count = (parseInt(req.body["Item"+i]));
  }
- console.log(req.session.cart[1].count);
- res.redirect("/getBasket");
+   res.redirect("/getBasket");
 });
 
 app.post('/DetailPage', function(req, res) {
@@ -86,6 +81,15 @@ app.post('/DetailPage', function(req, res) {
     var totalPrice = getTotalPrice(cart);
 
     res.render(__dirname + "/public/" + req.body.DetailButton + ".html", {totalPrice:totalPrice});
+});
+
+app.get('/getCheckout',function(req,res){
+  res.sendFile(__dirname + "/public/checkout.html");
+});
+
+app.get('/FinishTransaction',function(req,res){
+  req.session.destroy();
+  res.redirect("/home");
 });
 
 const server = app.listen(9999, () => {
