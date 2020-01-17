@@ -21,9 +21,9 @@ class Item {
   }
 
 app.use(expressSession({
-    secret: "super-safe-secret", // used to create session IDs
-    resave: false, // do not save already saved values during each request
-    saveUninitialized: true // forces an uninitialized session to be stored
+    secret: "hey it's me, your brother", 
+    resave: false, 
+    saveUninitialized: true 
 }));
   
   app.get('/home', function(req, res) {
@@ -70,7 +70,16 @@ app.get('/getBasket', function(req, res) {
 app.post('/updateBasket', function(req, res) {
 
   for(var i = 0; i < req.session.cart.length; i++){
-    req.session.cart[i].count = (parseInt(req.body["Item"+i]));
+    var itemCount= (parseInt(req.body["Item"+i]));
+    if(itemCount !=0)
+    {
+    req.session.cart[i].count = itemCount;
+    }
+    else
+    {
+      req.session.cart.splice(i,1);
+    }
+
  }
    res.redirect("/getBasket");
 });
